@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		269AF94227437EE400F7FAF6 /* RotationDialConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269AF94127437EE400F7FAF6 /* RotationDialConfig.swift */; };
+		5EA695F32A5557F800F3FE55 /* CropAuxiliaryIndicatorView+ImageOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA695F22A5557F800F3FE55 /* CropAuxiliaryIndicatorView+ImageOverlay.swift */; };
 		5F17E40A253535F300A3EB7D /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F17E409253535F300A3EB7D /* Orientation.swift */; };
 		5F69CC5E26C0629400568B75 /* Definition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F69CC5D26C0629400568B75 /* Definition.swift */; };
 		5F7D22AE245BCA8D0015A0D5 /* CropToolbarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7D22AD245BCA8D0015A0D5 /* CropToolbarProtocol.swift */; };
@@ -141,6 +142,7 @@
 
 /* Begin PBXFileReference section */
 		269AF94127437EE400F7FAF6 /* RotationDialConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationDialConfig.swift; sourceTree = "<group>"; };
+		5EA695F22A5557F800F3FE55 /* CropAuxiliaryIndicatorView+ImageOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CropAuxiliaryIndicatorView+ImageOverlay.swift"; sourceTree = "<group>"; };
 		5F17E409253535F300A3EB7D /* Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
 		5F69CC5D26C0629400568B75 /* Definition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definition.swift; sourceTree = "<group>"; };
 		5F7D22AD245BCA8D0015A0D5 /* CropToolbarProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropToolbarProtocol.swift; sourceTree = "<group>"; };
@@ -280,6 +282,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5EA695F12A5557F800F3FE55 /* ImageOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				5EA695F22A5557F800F3FE55 /* CropAuxiliaryIndicatorView+ImageOverlay.swift */,
+			);
+			path = ImageOverlay;
+			sourceTree = "<group>";
+		};
 		660D4F3B298C069200C4E11A /* Mock */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +513,7 @@
 				664A7E9E2884606800DF7C79 /* Global.swift */,
 				OBJ_43 /* Angle.swift */,
 				OBJ_10 /* Info.plist */,
+				5EA695F12A5557F800F3FE55 /* ImageOverlay */,
 				OBJ_11 /* CropView */,
 				OBJ_23 /* CropViewController */,
 				OBJ_29 /* Extensions */,
@@ -755,6 +766,7 @@
 				OBJ_83 /* RatioPresenter.swift in Sources */,
 				F2AD53412A46DB8B00AE9C87 /* ImageAutoAdjustHelper.swift in Sources */,
 				66100E0D294BAE94001C8593 /* CropAuxiliaryIndicatorViewProtocol.swift in Sources */,
+				5EA695F32A5557F800F3FE55 /* CropAuxiliaryIndicatorView+ImageOverlay.swift in Sources */,
 				OBJ_84 /* ToolBarButtonImageBuilder.swift in Sources */,
 				5FCE938724834C57002BBE65 /* ToolbarButtonOptions.swift in Sources */,
 				OBJ_85 /* CGImageExtensions.swift in Sources */,
