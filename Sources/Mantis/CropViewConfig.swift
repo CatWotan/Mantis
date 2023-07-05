@@ -73,5 +73,8 @@ public struct CropViewConfig {
     
     public var builtInRotationControlViewType: BuiltInRotationControlViewType = .rotationDial()
     
+    public var overlayImage: UIImage?
+    public var overlayImageAlpha = CGFloat(0.4)
+
     public init() {}
 }

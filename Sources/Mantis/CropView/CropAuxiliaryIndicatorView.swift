@@ -33,7 +33,7 @@ class CropAuxiliaryIndicatorView: UIView, CropAuxiliaryIndicatorViewProtocol {
 
     var gridLineNumberType: GridLineNumberType = .crop
     
-    private var borderLine: UIView = UIView()
+    private var borderLine: UIView = .init()
     private var cornerHandles: [UIView] = []
     private var edgeLineHandles: [UIView] = []
     
@@ -227,7 +227,7 @@ class CropAuxiliaryIndicatorView: UIView, CropAuxiliaryIndicatorViewProtocol {
     }
             
     func handleIndicatorHandleTouched(with tappedEdge: CropViewAuxiliaryIndicatorHandleType) {
-        guard tappedEdge != .none  else {
+        guard tappedEdge != .none else {
             return
         }
         

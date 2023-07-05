@@ -6,15 +6,15 @@
 //  Copyright © 2018 Echo Studio. All rights reserved.
 //
 
-import UIKit
 import Mantis
+import UIKit
 
 class ViewController: UIViewController, CropViewControllerDelegate {
     var image = UIImage(named: "sunflower.jpg")
     
-    @IBOutlet weak var croppedImageView: UIImageView!
+    @IBOutlet var croppedImageView: UIImageView!
     var imagePicker: ImagePicker!
-    @IBOutlet weak var cropShapesButton: UIButton!
+    @IBOutlet var cropShapesButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class ViewController: UIViewController, CropViewControllerDelegate {
     @IBAction func normalPresent(_ sender: Any) {
         guard let image = image else {
             return
-        }        
+        }
         var config = Mantis.Config()
         config.cropMode = .async
         
@@ -78,9 +78,9 @@ class ViewController: UIViewController, CropViewControllerDelegate {
                                        initialMaskFrame: CGRect(x: 14.0, y: 62.25, width: 347.0, height: 520.5),
                                        maskFrame: CGRect(x: 59.47694524495677, y: 14.0, width: 256.04610951008647, height: 617.0),
                                        cropWorkbenchViewBounds: CGRect(x: 231.66666666666666,
-                                                                y: 439.6666666666667,
-                                                                width: 557.1387432741491,
-                                                                height: 654.7511809035641))
+                                                                       y: 439.6666666666667,
+                                                                       width: 557.1387432741491,
+                                                                       height: 654.7511809035641))
                 
         config.cropViewConfig.presetTransformationType = .presetInfo(info: transform)
         config.cropViewConfig.builtInRotationControlViewType = .slideDial()
@@ -119,11 +119,13 @@ class ViewController: UIViewController, CropViewControllerDelegate {
             return
         }
         
-        let config = Mantis.Config()
+        var config = Mantis.Config()
+        config.cropViewConfig.overlayImage = UIImage(named: "overlay")
+        config.cropViewConfig.overlayImageAlpha = CGFloat(0.8)
         
         let cropViewController = Mantis.cropViewController(image: image, config: config)
         cropViewController.delegate = self
-        cropViewController.config.presetFixedRatioType = .alwaysUsingOnePresetFixedRatio(ratio: 16.0 / 9.0)
+        cropViewController.config.presetFixedRatioType = .alwaysUsingOnePresetFixedRatio(ratio: 7 / 9)
         present(cropViewController, animated: true)
     }
         
@@ -209,7 +211,6 @@ class ViewController: UIViewController, CropViewControllerDelegate {
         cropViewController.modalPresentationStyle = .fullScreen
         cropViewController.delegate = self
         present(cropViewController, animated: true)
-
     }
     
     typealias CropShapeItem = (type: Mantis.CropShapeType, title: String)
@@ -241,8 +242,8 @@ class ViewController: UIViewController, CropViewControllerDelegate {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         for item in cropShapeList {
-            let action = UIAlertAction(title: item.title, style: .default) {[weak self] _ in
-                guard let self = self else {return}
+            let action = UIAlertAction(title: item.title, style: .default) { [weak self] _ in
+                guard let self = self else { return }
                 var config = Mantis.Config()
                 config.cropViewConfig.cropShapeType = item.type
                 config.cropViewConfig.cropBorderWidth = 40
@@ -280,9 +281,10 @@ class ViewController: UIViewController, CropViewControllerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navigationController = segue.destination as? UINavigationController,
-           let embeddedCropViewController = navigationController.viewControllers.first as? EmbeddedCropViewController {
+           let embeddedCropViewController = navigationController.viewControllers.first as? EmbeddedCropViewController
+        {
             embeddedCropViewController.image = image
-            embeddedCropViewController.didGetCroppedImage = {[weak self] image in
+            embeddedCropViewController.didGetCroppedImage = { [weak self] image in
                 self?.croppedImageView.image = image
                 self?.dismiss(animated: true)
             }
@@ -292,7 +294,8 @@ class ViewController: UIViewController, CropViewControllerDelegate {
     func cropViewControllerDidCrop(_ cropViewController: CropViewController,
                                    cropped: UIImage,
                                    transformation: Transformation,
-                                   cropInfo: CropInfo) {
+                                   cropInfo: CropInfo)
+    {
         print("transformation is \(transformation)")
         print("cropInfo is \(cropInfo)")
         croppedImageView.image = cropped

@@ -25,10 +25,12 @@
 import UIKit
 
 // MARK: - APIs
+
 public func cropViewController(image: UIImage,
                                config: Mantis.Config = Mantis.Config(),
                                cropToolbar: CropToolbarProtocol = CropToolbar(frame: .zero),
-                               rotationControlView: RotationControlViewProtocol? = nil) -> Mantis.CropViewController {
+                               rotationControlView: RotationControlViewProtocol? = nil) -> Mantis.CropViewController
+{
     let cropViewController = CropViewController(config: config)
     cropViewController.cropView = buildCropView(withImage: image,
                                                 config: config.cropViewConfig,
@@ -40,7 +42,8 @@ public func cropViewController(image: UIImage,
 public func cropViewController<T: CropViewController>(image: UIImage,
                                                       config: Mantis.Config = Mantis.Config(),
                                                       cropToolbar: CropToolbarProtocol = CropToolbar(frame: .zero),
-                                                      rotationControlView: RotationControlViewProtocol? = nil) -> T {
+                                                      rotationControlView: RotationControlViewProtocol? = nil) -> T
+{
     let cropViewController = T(config: config)
     cropViewController.cropView = buildCropView(withImage: image,
                                                 config: config.cropViewConfig,
@@ -53,7 +56,8 @@ public func setupCropViewController(_ cropViewController: Mantis.CropViewControl
                                     with image: UIImage,
                                     and config: Mantis.Config = Mantis.Config(),
                                     cropToolbar: CropToolbarProtocol = CropToolbar(frame: .zero),
-                                    rotationControlView: RotationControlViewProtocol? = nil) {
+                                    rotationControlView: RotationControlViewProtocol? = nil)
+{
     cropViewController.config = config
     cropViewController.cropView = buildCropView(withImage: image,
                                                 config: config.cropViewConfig,
@@ -71,7 +75,7 @@ public func crop(image: UIImage, by cropInfo: CropInfo) -> UIImage? {
 
 public struct Language {
     var code: String
-    
+
     public init(code: String) {
         self.code = code
     }
@@ -86,19 +90,21 @@ public func resetLanguage() {
 }
 
 // MARK: - internal section
+
 var localizationConfig = LocalizationConfig()
 
 // MARK: - private section
-private(set) var bundle: Bundle? = {
-    return Mantis.Config.bundle
-}()
+
+private(set) var bundle: Bundle? = Mantis.Config.bundle
 
 private func buildCropView(withImage image: UIImage,
                            config cropViewConfig: CropViewConfig,
-                           rotationControlView: RotationControlViewProtocol?) -> CropViewProtocol {
+                           rotationControlView: RotationControlViewProtocol?) -> CropViewProtocol
+{
     let cropAuxiliaryIndicatorView = CropAuxiliaryIndicatorView(frame: .zero,
                                                                 cropBoxHotAreaUnit: cropViewConfig.cropBoxHotAreaUnit,
-                                                                disableCropBoxDeformation: cropViewConfig.disableCropBoxDeformation)
+                                                                disableCropBoxDeformation: cropViewConfig.disableCropBoxDeformation, overlayImage: cropViewConfig.overlayImage,
+                                                                overlayImageAlpha: cropViewConfig.overlayImageAlpha)
     let imageContainer = ImageContainer(image: image)
     let cropView = CropView(image: image,
                             cropViewConfig: cropViewConfig,
@@ -107,7 +113,7 @@ private func buildCropView(withImage image: UIImage,
                             imageContainer: imageContainer,
                             cropWorkbenchView: buildCropWorkbenchView(with: cropViewConfig, and: imageContainer),
                             cropMaskViewManager: buildCropMaskViewManager(with: cropViewConfig))
-    
+
     setupRotationControlViewIfNeeded(withConfig: cropViewConfig, cropView: cropView, rotationControlView: rotationControlView)
     return cropView
 }
@@ -121,30 +127,32 @@ private func buildCropViewModel(with cropViewConfig: CropViewConfig) -> CropView
 
 private func buildCropWorkbenchView(with cropViewConfig: CropViewConfig, and imageContainer: ImageContainerProtocol) -> CropWorkbenchViewProtocol {
     CropWorkbenchView(frame: .zero,
-                   minimumZoomScale: cropViewConfig.minimumZoomScale,
-                   maximumZoomScale: cropViewConfig.maximumZoomScale,
-                   imageContainer: imageContainer)
+                      minimumZoomScale: cropViewConfig.minimumZoomScale,
+                      maximumZoomScale: cropViewConfig.maximumZoomScale,
+                      imageContainer: imageContainer)
 }
 
 private func buildCropMaskViewManager(with cropViewConfig: CropViewConfig) -> CropMaskViewManagerProtocol {
     let dimmingView = CropDimmingView(cropShapeType: cropViewConfig.cropShapeType)
     let visualEffectView = CropMaskVisualEffectView(cropShapeType: cropViewConfig.cropShapeType,
                                                     effectType: cropViewConfig.cropMaskVisualEffectType)
-    
+
     if let color = cropViewConfig.backgroundColor {
         dimmingView.overLayerFillColor = color.cgColor
         visualEffectView.overLayerFillColor = color.cgColor
     }
-    
+
     return CropMaskViewManager(dimmingView: dimmingView, visualEffectView: visualEffectView)
 }
 
 private func setupRotationControlViewIfNeeded(withConfig cropViewConfig: CropViewConfig,
                                               cropView: CropView,
-                                              rotationControlView: RotationControlViewProtocol?) {
+                                              rotationControlView: RotationControlViewProtocol?)
+{
     if let rotationControlView = rotationControlView {
         if rotationControlView.isAttachedToCropView == false ||
-            rotationControlView.isAttachedToCropView && cropViewConfig.showAttachedRotationControlView {
+            rotationControlView.isAttachedToCropView && cropViewConfig.showAttachedRotationControlView
+        {
             cropView.rotationControlView = rotationControlView
         }
     } else {
